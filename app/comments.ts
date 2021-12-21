@@ -2,6 +2,8 @@ import {comments as sanity} from "~/sanity.server"
 import {nanoid} from "nanoid"
 
 export type Comment = {
+  _id: string
+  _type: "comment"
   _createdAt: number;
   postId: string;
   name: string;
@@ -9,7 +11,7 @@ export type Comment = {
 };
 
 export async function getComments(postId:string) {
-  return sanity.fetch(`
+  return sanity.fetch<Comment[]>(`
   * [_type == "comment" && postId == $postId && !(_id in path("drafts.*"))] | order(_createdAt desc)`, {postId})
 }
 
@@ -21,8 +23,5 @@ export async function createComment(postId:string, name:string, comment:string) 
     name,
     comment,
     postId
-  }).then(doc => {
-    console.log("QHWT?")
-    return doc
   })
 }

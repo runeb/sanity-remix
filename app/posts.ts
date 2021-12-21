@@ -1,7 +1,18 @@
 import {posts as sanity} from "~/sanity.server"
 
+interface Post {
+  _id: string
+  slug: string
+  title: string
+  authors: {
+    name: string
+    email?: string
+  }[]
+  text: any[]
+}
+
 export async function getPost(slug:string) {
-  return sanity.fetch(
+  return sanity.fetch<Post>(
     `* [_type == "post" && slug.current == $slug] {
       _id,
       "slug": $slug,
@@ -25,8 +36,15 @@ export async function getPost(slug:string) {
   );
 }
 
+interface PostSummary {
+  _id: string
+  slug: string
+  title: string
+  _createdAt: number
+}
+
 export async function getPosts() {
-  return sanity.fetch(`
+  return sanity.fetch<PostSummary[]>(`
     * [_type == "post" && defined(slug.current)] {
       _id,
       "slug": slug.current,
