@@ -15,6 +15,9 @@ export const PortableText = ({ blocks }: { blocks: any[] }) => {
             <pre>{JSON.stringify(params, null, 2)}</pre>
           </div>
         ),
+        marks: {
+          internalLink: (props) => <span style={{}}> {props.children} </span>
+        },
         types: {
           muxVideo: ({ node }) => {
             return (
