@@ -12,6 +12,7 @@
   "dependencies": {
     "@remix-run/react": "^1.1.1",
     "@remix-run/serve": "^1.1.1",
+    "@remix-run/vercel": "^1.1.1",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.23.2",
     "dotenv": "^10.0.0",
